@@ -1,16 +1,7 @@
 package cbases;
 
-import cbases.Paneles.*;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-
-/**
- *
- * @author espec
- */
 public class Main extends javax.swing.JFrame {
-
-    
+  
     InterfazGrafica ig = new InterfazGrafica();
 
     public Main() {
@@ -164,7 +155,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
        
-        ig.mostrarPanel(evt.getActionCommand());
+        ig.deleteAlumno();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed

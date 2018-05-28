@@ -3,13 +3,13 @@ package cbases.Paneles;
 import cbases.*;
 
 public class PanelTable extends javax.swing.JPanel {
-    
-     InterfazGrafica ig = new InterfazGrafica();
-   
+
+    InterfazGrafica ig = new InterfazGrafica();
+
+
     public PanelTable() {
         initComponents();
-       
-        
+
     }
 
     /**
@@ -64,10 +64,8 @@ public class PanelTable extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTAlumnosMouseClicked
-        // Guardar los valores de la tabla en cada variable
-//        nombreRecogido=jTAlumnos.getValueAt(jTAlumnos.getSelectedRow(), 0);
-//        notaRecogido=jTAlumnos.getValueAt(jTAlumnos.getSelectedRow(), 1);
-//        refRecogido=jTAlumnos.getValueAt(jTAlumnos.getSelectedRow(), 2);
+//         Guardar los valores de la tabla en cada variable
+ig.recogerDatos(((int) jTAlumnos.getValueAt(jTAlumnos.getSelectedRow(), 0)), ((String) jTAlumnos.getValueAt(jTAlumnos.getSelectedRow(), 1)), ((int) jTAlumnos.getValueAt(jTAlumnos.getSelectedRow(), 2)));
     }//GEN-LAST:event_jTAlumnosMouseClicked
 
 

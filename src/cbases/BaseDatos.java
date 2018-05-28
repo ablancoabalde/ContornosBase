@@ -12,8 +12,6 @@ public class BaseDatos {
 
     Connection connect;
 
-    ArrayList<Alumno> listAlumno = new ArrayList();
-
     // Medoto para conectar la base
     public void conectar() {
         try {
@@ -40,8 +38,9 @@ public class BaseDatos {
 
     // Metodo que carga los datos de la base y en este caso los muestra por una Tabla del Neatbeans
     public ArrayList bdCargar() {
+        ArrayList<Alumno> listAlumno = new ArrayList();
         this.conectar();
-        
+
         // Limpiar la lista, para que cuando se recargue no se duplique
         listAlumno.clear();
         try {
@@ -91,14 +90,14 @@ public class BaseDatos {
     }
 
     // Metodo que elimina un Alumno de la tabla Alumno a traves de la Refencia de este
-    public void deleteAlumno(String ref) {
+    public void deleteAlumno(int ref) {
         this.conectar();
 
         try {
             // Metodo de sql que crea un Objeto de sql    
             Statement st = connect.createStatement();
             // borra un usuario en concreto
-            st.executeUpdate("delete from Alumno where Ref='" + ref + "';");
+            st.executeUpdate("delete from Alumno where Ref=" + ref + ";");
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -107,18 +106,17 @@ public class BaseDatos {
         }
 
         this.desconectar();
-//        this.bdCargar(Main.modelo);
     }
 
     // Metodo que actualiza un Alumno de la tabla alumno, por unos valores nuevos que recibe
-    public void updateAlumno(String nombre, int nota, String ref) {
+    public void updateAlumno(int ref, String nombre, int nota) {
         this.conectar();
 
         try {
             // Metodo de sql que crea un Objeto de sql    
             Statement st = connect.createStatement();
             // Metodo del objeto sql, que actualiza la base y no devuelve nada
-            st.executeUpdate("update Alumno set Nombre = '" + nombre + "' , Nota = '" + nota + "' WHERE Ref = '" + ref + "'");
+            st.executeUpdate("update Alumno set Nombre = '" + nombre + "' , Nota = '" + nota + "' WHERE Ref = " + ref + "");
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se pudo modificar", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -130,11 +128,12 @@ public class BaseDatos {
     }
 
     // Metodo que busca un Alumno a traves de una referencia y lo carga en un table del NeatBeans
-    public void searchAlumno(DefaultTableModel modelo, String ref) {
+    public ArrayList searchAlumno(int ref) {
+        ArrayList<Alumno> listAlumno = new ArrayList();
         this.conectar();
-        // Limpia la tabla
-        modelo.setColumnCount(0);
-        modelo.setRowCount(0);
+
+        // Limpiar la lista, para que cuando se recargue no se duplique
+        listAlumno.clear();
 
         try {
 
@@ -142,13 +141,10 @@ public class BaseDatos {
             // Busca en la base de datos una Referencia introducida si la encuentra
             // guarda los datos recibidos y los almacenas en rs
             ResultSet rs = s.executeQuery("select * from Alumno where Ref like'%" + ref + "%'");
-
-            modelo.addColumn("Nombre");
-            modelo.addColumn("Nota");
-            modelo.addColumn("Referencia");
-
+            // Recorremos el Array y vamos introduciendo los datos en la tabla
             while (rs.next()) {
-                modelo.addRow(new Object[]{rs.getString(1), rs.getInt(2), rs.getString(3)});
+                listAlumno.add(new Alumno(rs.getInt(1), rs.getString(2), rs.getInt(3)));
+
             }
 
         } catch (SQLException ex) {
@@ -156,6 +152,7 @@ public class BaseDatos {
         }
 
         this.desconectar();
+        return listAlumno;
     }
 
 }

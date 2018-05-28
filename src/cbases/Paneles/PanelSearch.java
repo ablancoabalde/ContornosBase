@@ -1,19 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cbases.Paneles;
 
-/**
- *
- * @author espec
- */
+import cbases.InterfazGrafica;
+
 public class PanelSearch extends javax.swing.JPanel {
 
-    /**
-     * Creates new form PanelSearch
-     */
+    InterfazGrafica ig = new InterfazGrafica();
+
     public PanelSearch() {
         initComponents();
     }
@@ -27,21 +19,79 @@ public class PanelSearch extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setBackground(new java.awt.Color(0, 255, 51));
+        jLabel5 = new javax.swing.JLabel();
+        tBuscar = new javax.swing.JTextField();
+        btnConfirmarAdd = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TablaSearch = new javax.swing.JTable();
+
+        setBackground(new java.awt.Color(102, 0, 255));
+
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Buscar");
+
+        btnConfirmarAdd.setText("Confirmar");
+        btnConfirmarAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarAddActionPerformed(evt);
+            }
+        });
+
+        TablaSearch.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(TablaSearch);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addComponent(btnConfirmarAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnConfirmarAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(tBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(22, 22, 22))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnConfirmarAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarAddActionPerformed
+        ig.searchAlumno(Integer.valueOf(tBuscar.getText()));
+        this.limpiarCajasPaneles();
+    }//GEN-LAST:event_btnConfirmarAddActionPerformed
+    public void limpiarCajasPaneles() {
+        tBuscar.setText(null);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JTable TablaSearch;
+    private javax.swing.JButton btnConfirmarAdd;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane2;
+    public static javax.swing.JTextField tBuscar;
     // End of variables declaration//GEN-END:variables
 }

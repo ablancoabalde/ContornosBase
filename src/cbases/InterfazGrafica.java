@@ -2,12 +2,16 @@ package cbases;
 
 import cbases.Paneles.*;
 import static cbases.Paneles.PanelTable.jTAlumnos;
+import static cbases.Paneles.PanelUpdate.tNombre;
+import static cbases.Paneles.PanelUpdate.tNota;
 import java.awt.GridBagLayout;
 import javax.swing.table.DefaultTableModel;
 
 public class InterfazGrafica {
 
     DefaultTableModel modelo = new DefaultTableModel();
+    DefaultTableModel modelo2 = new DefaultTableModel();
+    
     Metodos met = new Metodos();
 
     GridBagLayout layout = new GridBagLayout();
@@ -15,6 +19,10 @@ public class InterfazGrafica {
     PanelAdd padd;
     PanelUpdate pUpd;
     PanelSearch pSear;
+
+    static int referencia;
+    static String nombre;
+    static int nota;
 
     public void addPanel() {
         ptable = new PanelTable();
@@ -44,17 +52,18 @@ public class InterfazGrafica {
         padd.setVisible(false);
         pUpd.setVisible(false);
         pSear.setVisible(false);
+        this.modeloTable();
     }
 
     public void mostrarPanel(String nombre) {
-        this.modeloTable();
+        
         switch (nombre) {
             case "Cargar":
                 ptable.setVisible(true);
                 padd.setVisible(false);
                 pUpd.setVisible(false);
                 pSear.setVisible(false);
-                this.mostrarDatosTabla(modelo);
+                this.mostrarDatosTabla();
                 break;
             case "Añadir":
                 ptable.setVisible(false);
@@ -67,12 +76,15 @@ public class InterfazGrafica {
                 padd.setVisible(false);
                 pUpd.setVisible(true);
                 pSear.setVisible(false);
+                this.datosCajas();
                 break;
             case "Buscar":
                 ptable.setVisible(false);
                 padd.setVisible(false);
                 pUpd.setVisible(false);
                 pSear.setVisible(true);
+                //?
+               // this.searchAlumno(referencia);
                 break;
         }
 
@@ -80,14 +92,39 @@ public class InterfazGrafica {
 
     private void modeloTable() {
         modelo = (DefaultTableModel) PanelTable.jTAlumnos.getModel();
+        modelo2= (DefaultTableModel) PanelSearch.TablaSearch.getModel();
     }
 
-    public void mostrarDatosTabla(DefaultTableModel modelo) {
+    public void mostrarDatosTabla() {
         met.btnCargar(modelo);
     }
-    
-    public void addAlumno(String nombre, int nota){
+
+    public void addAlumno(String nombre, int nota) {
         met.btnAddAlumno(nombre, nota);
     }
 
+    public void deleteAlumno() {
+        met.btnDelete(referencia);
+    }
+
+    public void updateAlumno(String nombre, int nota) {
+        met.btnUpdate(referencia, nombre, nota);
+    }
+
+    public void searchAlumno(int ref) {
+        met.btnSearch(modelo2, ref);
+    }
+
+    // Recoge los valores al pulsar sobre la tabla y los almacena en variables locales
+    public void recogerDatos(int refrecog, String nombrerecog, int notarecog) {
+        referencia = refrecog;
+        nombre = nombrerecog;
+        nota = notarecog;
+    }
+
+    // Mete los valores recogidos en las de texto del panel Update
+    public void datosCajas() {
+        tNombre.setText(nombre);
+        tNota.setText(String.valueOf(nota));
+    }
 }
