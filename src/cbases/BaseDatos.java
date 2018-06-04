@@ -2,11 +2,9 @@ package cbases;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 public class BaseDatos {
 
@@ -32,6 +30,7 @@ public class BaseDatos {
             // Funcion que cierra la base
             connect.close();
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se pudo desconectadar", "Advertencia", JOptionPane.WARNING_MESSAGE);
             Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -50,13 +49,14 @@ public class BaseDatos {
             // recoge el Array de la consulta
             ResultSet rs = s.executeQuery("select * from Alumno");
 
-            // Recorremos el Array y vamos introduciendo los datos en la tabla
+            // Recorremos el Array y almacenamos valores en un array que luego retornaremos
             while (rs.next()) {
                 listAlumno.add(new Alumno(rs.getInt(1), rs.getString(2), rs.getInt(3)));
 
             }
 
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Fallo carga de valores", "Advertencia", JOptionPane.WARNING_MESSAGE);
             Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -148,6 +148,7 @@ public class BaseDatos {
             }
 
         } catch (SQLException ex) {
+             JOptionPane.showMessageDialog(null, "Error en la busqueda", "Advertencia", JOptionPane.WARNING_MESSAGE);
             Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
         }
 

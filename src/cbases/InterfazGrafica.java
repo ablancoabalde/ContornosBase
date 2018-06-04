@@ -1,17 +1,17 @@
 package cbases;
 
 import cbases.Paneles.*;
-import static cbases.Paneles.PanelTable.jTAlumnos;
 import static cbases.Paneles.PanelUpdate.tNombre;
 import static cbases.Paneles.PanelUpdate.tNota;
 import java.awt.GridBagLayout;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class InterfazGrafica {
 
     DefaultTableModel modelo = new DefaultTableModel();
     DefaultTableModel modelo2 = new DefaultTableModel();
-    
+
     Metodos met = new Metodos();
 
     GridBagLayout layout = new GridBagLayout();
@@ -36,7 +36,6 @@ public class InterfazGrafica {
         Main.PanelContenedor.add(pUpd);
         Main.PanelContenedor.add(pSear);
 
-        System.out.println(Main.PanelContenedor.getSize());
         ptable.setSize(Main.PanelContenedor.getSize());
         ptable.setPreferredSize(Main.PanelContenedor.getSize());
 
@@ -56,7 +55,7 @@ public class InterfazGrafica {
     }
 
     public void mostrarPanel(String nombre) {
-        
+
         switch (nombre) {
             case "Cargar":
                 ptable.setVisible(true);
@@ -84,7 +83,7 @@ public class InterfazGrafica {
                 pUpd.setVisible(false);
                 pSear.setVisible(true);
                 //?
-               // this.searchAlumno(referencia);
+                this.searchAlumno(referencia);
                 break;
         }
 
@@ -92,7 +91,7 @@ public class InterfazGrafica {
 
     private void modeloTable() {
         modelo = (DefaultTableModel) PanelTable.jTAlumnos.getModel();
-        modelo2= (DefaultTableModel) PanelSearch.TablaSearch.getModel();
+        modelo2 = (DefaultTableModel) PanelSearch.TablaSearch.getModel();
     }
 
     public void mostrarDatosTabla() {
@@ -104,15 +103,23 @@ public class InterfazGrafica {
     }
 
     public void deleteAlumno() {
-        met.btnDelete(referencia);
+        if (referencia != 0) {
+            met.btnDelete(referencia);
+            this.borrar();
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione primero un Alumno de la tabla", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+
     }
 
     public void updateAlumno(String nombre, int nota) {
         met.btnUpdate(referencia, nombre, nota);
+        this.borrar();
     }
 
     public void searchAlumno(int ref) {
         met.btnSearch(modelo2, ref);
+        this.borrar();
     }
 
     // Recoge los valores al pulsar sobre la tabla y los almacena en variables locales
@@ -122,9 +129,23 @@ public class InterfazGrafica {
         nota = notarecog;
     }
 
-    // Mete los valores recogidos en las de texto del panel Update
+    // Mete los valores recogidos en las cajas de texto del panel Update
     public void datosCajas() {
-        tNombre.setText(nombre);
-        tNota.setText(String.valueOf(nota));
+        if (referencia != 0) {
+            tNombre.setText(nombre);
+            tNota.setText(String.valueOf(nota));
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione primero un Alumno de la tabla", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+
+    }
+
+    // Reinicia valores a 0
+    public void borrar() {
+        referencia = 0;
+        nombre = null;
+        nota = 0;
+        tNombre.setText(null);
+        tNota.setText(null);
     }
 }

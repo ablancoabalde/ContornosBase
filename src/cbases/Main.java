@@ -3,7 +3,7 @@ package cbases;
 public class Main extends javax.swing.JFrame {
   
     InterfazGrafica ig = new InterfazGrafica();
-
+    
     public Main() {
         initComponents();
         ig.addPanel();
@@ -143,28 +143,25 @@ public class Main extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    //Eventos de los botones
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
         // Manda el nombre del botón pulsado y muestra el Panel correspondiente
         ig.mostrarPanel(evt.getActionCommand());
     }//GEN-LAST:event_btnCargarActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-       
         ig.mostrarPanel(evt.getActionCommand());
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-       
         ig.deleteAlumno();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-       
         ig.mostrarPanel(evt.getActionCommand());
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        
         ig.mostrarPanel(evt.getActionCommand());
     }//GEN-LAST:event_btnSearchActionPerformed
 
