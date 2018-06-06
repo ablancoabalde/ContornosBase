@@ -10,7 +10,9 @@ public class BaseDatos {
 
     Connection connect;
 
-    // Medoto para conectar la base
+    /**
+     * Medoto para conectar la base
+     */
     public void conectar() {
         try {
             // Funcion que permite abrir la base de datos creada
@@ -23,8 +25,10 @@ public class BaseDatos {
             Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-// Medoto para desconectar la base
 
+    /**
+     * Medoto para desconectar la base
+     */
     public void desconectar() {
         try {
             // Funcion que cierra la base
@@ -35,7 +39,11 @@ public class BaseDatos {
         }
     }
 
-    // Metodo que carga los datos de la base y en este caso los muestra por una Tabla del Neatbeans
+    /**
+     * Metodo que carga los datos de la base y los guarda en un arraylist
+     *
+     * @return Arraylist
+     */
     public ArrayList bdCargar() {
         ArrayList<Alumno> listAlumno = new ArrayList();
         this.conectar();
@@ -65,7 +73,12 @@ public class BaseDatos {
         return listAlumno;
     }
 
-    // Metodo que agrega un Alumno a la tabla Alumno
+    /**
+     * Metodo que agrega un Alumno a la tabla Alumno de la base de la base de
+     * datos
+     *
+     * @param alumno
+     */
     public void addAlumno(Alumno alumno) {
         this.conectar();
         try {
@@ -74,7 +87,7 @@ public class BaseDatos {
             PreparedStatement st = connect.prepareStatement("insert into Alumno values (?,?,?)");
             // Recoge los valores que estan un Textfield y los números indican la Row de la base
             // donde se va a insertar
-//             st.setInt(1, alumno.getRef());
+
             st.setString(2, alumno.getNombre());
             st.setInt(3, alumno.getNota());
 
@@ -86,10 +99,14 @@ public class BaseDatos {
         }
         this.desconectar();
 
-//        this.bdCargar(Main.modelo);
     }
 
-    // Metodo que elimina un Alumno de la tabla Alumno a traves de la Refencia de este
+    /**
+     * Metodo que elimina un Alumno de la tabla Alumno a traves de la Refencia
+     * de este
+     *
+     * @param ref
+     */
     public void deleteAlumno(int ref) {
         this.conectar();
 
@@ -108,7 +125,14 @@ public class BaseDatos {
         this.desconectar();
     }
 
-    // Metodo que actualiza un Alumno de la tabla alumno, por unos valores nuevos que recibe
+    /**
+     * Metodo que actualiza un Alumno de la tabla alumno, por unos valores
+     * nuevos que recibe
+     *
+     * @param ref
+     * @param nombre
+     * @param nota
+     */
     public void updateAlumno(int ref, String nombre, int nota) {
         this.conectar();
 
@@ -124,10 +148,15 @@ public class BaseDatos {
         }
 
         this.desconectar();
-//        this.bdCargar(Main.modelo);
     }
 
-    // Metodo que busca un Alumno a traves de una referencia y lo carga en un table del NeatBeans
+    /**
+     * Metodo que busca un Alumno a traves de una referencia y los guarda en un
+     * arraylist
+     *
+     * @param ref
+     * @return ArrayList
+     */
     public ArrayList searchAlumno(int ref) {
         ArrayList<Alumno> listAlumno = new ArrayList();
         this.conectar();
@@ -148,7 +177,7 @@ public class BaseDatos {
             }
 
         } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null, "Error en la busqueda", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error en la busqueda", "Advertencia", JOptionPane.WARNING_MESSAGE);
             Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
         }
 
